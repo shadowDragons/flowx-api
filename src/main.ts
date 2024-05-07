@@ -5,6 +5,7 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 import 'dotenv/config';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   // 使用fastify驱动
@@ -20,6 +21,16 @@ async function bootstrap() {
   );
   // 设置全局访问前缀
   app.setGlobalPrefix('api');
+
+  const config = new DocumentBuilder()
+    .setTitle('File Uploading')
+    .setDescription('A simple API that handles file uploading')
+    .setVersion('1.0')
+    .addTag('Files')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('/api/swagger', app, document);
+
   // 启动后的输出
   await app.listen(3100, () => {
     console.log('api: http://localhost:3100');

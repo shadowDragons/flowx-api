@@ -1,41 +1,63 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
-  Param,
-  Patch,
   Post,
+  Query,
+  ValidationPipe,
 } from '@nestjs/common';
 import { ProjectService } from '../services/project.service';
-import { SaveProjectDto } from '../dto/saveProject.dto';
+import { CreateProjectDto, UpdateProjectDto } from '../dto/saveProject.dto';
+import { QueryProjectDto } from '../dto/queryProject.dto';
 
 @Controller('project')
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
-  @Post()
-  create(@Body() saveProjectDto: SaveProjectDto) {
-    return this.projectService.create(saveProjectDto);
+  @Post('create')
+  create(@Body() createProjectDto: CreateProjectDto) {
+    return this.projectService.create(createProjectDto);
   }
 
-  @Get()
+  @Get('list')
   findAll() {
     return this.projectService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.projectService.findOne(id);
+  @Get('detail')
+  findOne(
+    @Query(
+      new ValidationPipe({
+        transform: true,
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        forbidUnknownValues: true,
+        validationError: { target: false },
+      }),
+    )
+    query: QueryProjectDto,
+  ) {
+    return this.projectService.findOne(query);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: number, @Body() updateBookDto: SaveProjectDto) {
-    return this.projectService.update(id, updateBookDto);
+  @Post('update')
+  update(@Body() updateBookDto: UpdateProjectDto) {
+    return this.projectService.update(updateBookDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: number) {
-    return this.projectService.remove(id);
+  @Post('delete')
+  remove(
+    @Query(
+      new ValidationPipe({
+        transform: true,
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        forbidUnknownValues: true,
+        validationError: { target: false },
+      }),
+    )
+    query: QueryProjectDto,
+  ) {
+    return this.projectService.remove(query);
   }
 }
