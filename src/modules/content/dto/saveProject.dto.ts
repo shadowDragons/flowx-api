@@ -10,16 +10,25 @@ export class CreateProjectDto {
   title: string;
 
   @ApiProperty({
-    description: '项目类型',
-  })
-  @IsNotEmpty({ message: '项目类型不能为空' })
-  type: number;
-
-  @ApiProperty({
     description: '项目描述',
   })
   @IsNotEmpty({ message: '项目描述不能为空' })
   description: string;
+
+  @ApiProperty({
+    description: '标签',
+  })
+  tags: string[];
+
+  @ApiProperty({
+    description: '图片',
+  })
+  imgs: number[];
+
+  @ApiProperty({
+    description: '技能',
+  })
+  skills: string[];
 }
 
 export class UpdateProjectDto extends CreateProjectDto {
