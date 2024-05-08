@@ -18,7 +18,8 @@ export class CreateProjectDto {
   @ApiProperty({
     description: '标签',
   })
-  tags: string[];
+  @IsNotEmpty({ message: '标签不能为空' })
+  tags: number[];
 
   @ApiProperty({
     description: '图片',
@@ -28,7 +29,8 @@ export class CreateProjectDto {
   @ApiProperty({
     description: '技能',
   })
-  skills: string[];
+  @IsNotEmpty({ message: '标签不能为空' })
+  skills: number[];
 }
 
 export class UpdateProjectDto extends CreateProjectDto {
