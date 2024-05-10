@@ -6,26 +6,20 @@ import { SkillController } from './controllers/skill.controller';
 import { SkillService } from './services/skill.service';
 import { ProjectTagController } from './controllers/project.tag.controller';
 import { ProjectTagService } from './services/project.tag.service';
-import { RoleController } from './controllers/role.controller';
-import { UserController } from './controllers/user.controller';
-import { RoleService } from './services/role.service';
-import { UserService } from './services/user.service';
+import { APP_GUARD } from '@nestjs/core';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Module({
-  controllers: [
-    ProjectController,
-    SkillController,
-    ProjectTagController,
-    RoleController,
-    UserController,
-  ],
+  controllers: [ProjectController, SkillController, ProjectTagController],
   providers: [
     ProjectService,
     PrismaService,
     SkillService,
     ProjectTagService,
-    RoleService,
-    UserService,
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
   ],
 })
 export class ContentModule {}

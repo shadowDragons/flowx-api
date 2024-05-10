@@ -6,7 +6,7 @@ import {
   Query,
   ValidationPipe,
 } from '@nestjs/common';
-import { RoleService } from '../services/role.service';
+import { RoleService } from '../serivces/role.service';
 import { CreateRoleDto, UpdateRoleDto } from '../dto/saveRole.dto';
 import { QueryRoleDto } from '../dto/queryRole.dto';
 

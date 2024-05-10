@@ -7,6 +7,7 @@ https://github.com/btc022003/nest-app-public-pre
 
 nestjs cli 文档：
 https://docs.nestjs.com/cli/usages
+npx nest g <schematic> <name> [options]
 
 prisma model：
 https://www.prisma.io/docs/orm/prisma-schema/data-model/relations/many-to-many-relations
@@ -27,5 +28,8 @@ https://docs.nestjs.com/security/encryption-and-hashing#hashing
 
 jwt：
 https://docs.nestjs.com/security/authentication#jwt-token
+
+prisma：
+https://www.prisma.io/docs/orm/prisma-schema/data-model/models
 
 

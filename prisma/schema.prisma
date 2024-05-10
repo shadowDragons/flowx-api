@@ -63,7 +63,7 @@ model SkillsOnProjects {
 
 model User {
   id        Int      @default(autoincrement()) @id
-  username     String
+  username     String @unique
   pass String
   salt String
   roles RolesOnUsers[]
