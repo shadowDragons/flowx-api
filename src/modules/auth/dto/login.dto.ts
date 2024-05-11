@@ -12,5 +12,5 @@ export class LoginDto {
     description: '密码',
   })
   @IsNotEmpty({ message: '密码不能为空' })
-  pass: string;
+  password: string;
 }

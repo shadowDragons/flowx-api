@@ -13,7 +13,7 @@ export class AuthService {
 
   async login(data: LoginDto): Promise<any> {
     const user = await this.userService.findOne(data.username);
-    const isMatch = await bcrypt.compare(data.pass, user.pass);
+    const isMatch = await bcrypt.compare(data.password, user.pass);
     if (!isMatch) {
       throw new UnauthorizedException();
     }
