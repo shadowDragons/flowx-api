@@ -5,7 +5,10 @@ import {
   CreateProjectTagDto,
   UpdateProjectTagDto,
 } from '../dto/saveProjectTag.dto';
-import { QueryProjectTagDto } from '../dto/queryProjectTag.dto';
+import {
+  QueryProjectTagAllDto,
+  QueryProjectTagDto,
+} from '../dto/queryProjectTag.dto';
 
 @Injectable()
 export class ProjectTagService {
@@ -20,8 +23,15 @@ export class ProjectTagService {
     });
   }
 
-  findAll() {
-    return this.prismaService.projectTag.findMany({ where: {} });
+  async findAll(query: QueryProjectTagAllDto) {
+    const skip = (query.current - 1) * query.pageSize;
+
+    const data = await this.prismaService.projectTag.findMany({
+      skip: skip,
+      take: query.pageSize,
+    });
+    const total = await this.prismaService.projectTag.count();
+    return { data: data, total: total, success: true };
   }
 
   findOne(query: QueryProjectTagDto) {

@@ -34,4 +34,29 @@ export class UserService {
       },
     });
   }
+
+  async getCurrentUser(id: number) {
+    const data = await this.prismaService.user.findFirst({
+      select: {
+        username: true,
+        roles: {
+          select: {
+            role: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
+      },
+      where: {
+        id: id,
+      },
+    });
+
+    return {
+      ...data,
+      roles: data.roles.map((item) => item.role.name),
+    };
+  }
 }

@@ -6,6 +6,7 @@ import {
 } from '@nestjs/platform-fastify';
 import 'dotenv/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { TransformInterceptor } from './transform.interceptor';
 
 async function bootstrap() {
   // 使用fastify驱动
@@ -21,6 +22,7 @@ async function bootstrap() {
   );
   // 设置全局访问前缀
   app.setGlobalPrefix('api');
+  app.useGlobalInterceptors(new TransformInterceptor());
 
   const config = new DocumentBuilder()
     .setTitle('File Uploading')

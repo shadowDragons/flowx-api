@@ -11,7 +11,10 @@ import {
   UpdateProjectTagDto,
 } from '../dto/saveProjectTag.dto';
 import { ProjectTagService } from '../services/project.tag.service';
-import { QueryProjectTagDto } from '../dto/queryProjectTag.dto';
+import {
+  QueryProjectTagAllDto,
+  QueryProjectTagDto,
+} from '../dto/queryProjectTag.dto';
 
 @Controller('project-tag')
 export class ProjectTagController {
@@ -23,8 +26,19 @@ export class ProjectTagController {
   }
 
   @Get('list')
-  findAll() {
-    return this.projectTagService.findAll();
+  findAll(
+    @Query(
+      new ValidationPipe({
+        transform: true,
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        forbidUnknownValues: true,
+        validationError: { target: false },
+      }),
+    )
+    query: QueryProjectTagAllDto,
+  ) {
+    return this.projectTagService.findAll(query);
   }
 
   @Get('detail')

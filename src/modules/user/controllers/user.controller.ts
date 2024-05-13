@@ -18,6 +18,6 @@ export class UserController {
 
   @Get('current-user')
   findOne(@Request() req: any) {
-    return req.user;
+    return this.userService.getCurrentUser(req.user.id);
   }
 }
