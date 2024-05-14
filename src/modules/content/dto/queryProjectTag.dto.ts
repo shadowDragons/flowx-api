@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 import { PageParamDto } from './pageParamDto.dto';
 
 export class QueryProjectTagDto {
@@ -12,4 +12,17 @@ export class QueryProjectTagDto {
   id: number;
 }
 
-export class QueryProjectTagAllDto extends PageParamDto {}
+export class QueryProjectTagAllDto extends PageParamDto {
+  @ApiProperty({
+    description: 'ids',
+  })
+  @Type(() => Number)
+  @IsOptional()
+  ids?: number[];
+
+  @ApiProperty({
+    description: 'name',
+  })
+  @IsOptional()
+  name: string;
+}

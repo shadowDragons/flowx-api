@@ -3,6 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
 import {
   CreateProjectTagDto,
+  DeleteProjectTagDto,
   UpdateProjectTagDto,
 } from '../dto/saveProjectTag.dto';
 import {
@@ -25,12 +26,22 @@ export class ProjectTagService {
 
   async findAll(query: QueryProjectTagAllDto) {
     const skip = (query.current - 1) * query.pageSize;
-
     const data = await this.prismaService.projectTag.findMany({
+      where: {
+        name: {
+          contains: query.name,
+        },
+      },
       skip: skip,
       take: query.pageSize,
     });
-    const total = await this.prismaService.projectTag.count();
+    const total = await this.prismaService.projectTag.count({
+      where: {
+        name: {
+          contains: query.name,
+        },
+      },
+    });
     return { data: data, total: total, success: true };
   }
 
@@ -52,7 +63,13 @@ export class ProjectTagService {
     });
   }
 
-  remove(query: QueryProjectTagDto) {
-    return this.prismaService.projectTag.delete({ where: { id: query.id } });
+  remove(query: DeleteProjectTagDto) {
+    return this.prismaService.projectTag.deleteMany({
+      where: {
+        id: {
+          in: query.ids,
+        },
+      },
+    });
   }
 }

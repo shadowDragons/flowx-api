@@ -18,3 +18,12 @@ export class UpdateProjectTagDto extends CreateProjectTagDto {
   @IsNotEmpty({ message: 'id不能为空' })
   id: number;
 }
+
+export class DeleteProjectTagDto {
+  @ApiProperty({
+    description: 'ids',
+  })
+  @Type(() => Number)
+  @IsNotEmpty({ message: 'ids不能为空' })
+  ids: number[];
+}

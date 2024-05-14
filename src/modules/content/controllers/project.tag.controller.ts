@@ -8,6 +8,7 @@ import {
 } from '@nestjs/common';
 import {
   CreateProjectTagDto,
+  DeleteProjectTagDto,
   UpdateProjectTagDto,
 } from '../dto/saveProjectTag.dto';
 import { ProjectTagService } from '../services/project.tag.service';
@@ -64,7 +65,7 @@ export class ProjectTagController {
 
   @Post('delete')
   remove(
-    @Query(
+    @Body(
       new ValidationPipe({
         transform: true,
         whitelist: true,
@@ -73,7 +74,7 @@ export class ProjectTagController {
         validationError: { target: false },
       }),
     )
-    query: QueryProjectTagDto,
+    query: DeleteProjectTagDto,
   ) {
     return this.projectTagService.remove(query);
   }
