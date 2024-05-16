@@ -6,9 +6,13 @@ import {
   Query,
   ValidationPipe,
 } from '@nestjs/common';
+import {
+  CreateRoleDto,
+  DeleteRoleDto,
+  UpdateRoleDto,
+} from '../dto/saveRole.dto';
+import { QueryRoleAllDto } from '../dto/queryRole.dto';
 import { RoleService } from '../serivces/role.service';
-import { CreateRoleDto, UpdateRoleDto } from '../dto/saveRole.dto';
-import { QueryRoleDto } from '../dto/queryRole.dto';
 
 @Controller('role')
 export class RoleController {
@@ -20,12 +24,7 @@ export class RoleController {
   }
 
   @Get('list')
-  findAll() {
-    return this.roleService.findAll();
-  }
-
-  @Get('detail')
-  findOne(
+  findAll(
     @Query(
       new ValidationPipe({
         transform: true,
@@ -35,9 +34,9 @@ export class RoleController {
         validationError: { target: false },
       }),
     )
-    query: QueryRoleDto,
+    query: QueryRoleAllDto,
   ) {
-    return this.roleService.findOne(query);
+    return this.roleService.findAll(query);
   }
 
   @Post('update')
@@ -47,7 +46,7 @@ export class RoleController {
 
   @Post('delete')
   remove(
-    @Query(
+    @Body(
       new ValidationPipe({
         transform: true,
         whitelist: true,
@@ -56,7 +55,7 @@ export class RoleController {
         validationError: { target: false },
       }),
     )
-    query: QueryRoleDto,
+    query: DeleteRoleDto,
   ) {
     return this.roleService.remove(query);
   }

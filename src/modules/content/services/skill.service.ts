@@ -1,45 +1,64 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from '@prisma/client';
-import { CreateSkillDto, UpdateSkillDto } from '../dto/saveSkill.dto';
-import { QuerySkillDto } from '../dto/querySkill.dto';
+import {
+  CreateSkillDto,
+  DeleteSkillDto,
+  UpdateSkillDto,
+} from '../dto/saveSkill.dto';
+import { QuerySkillAllDto } from '../dto/querySkill.dto';
 
 @Injectable()
 export class SkillService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  create(createSkillDto: CreateSkillDto) {
+  create(createtagDto: CreateSkillDto) {
     const data: Prisma.SkillCreateInput = {
-      name: createSkillDto.name,
+      name: createtagDto.name,
     };
     return this.prismaService.skill.create({
       data: data,
     });
   }
 
-  findAll() {
-    return this.prismaService.skill.findMany({ where: {} });
-  }
-
-  findOne(query: QuerySkillDto) {
-    return this.prismaService.skill.findUnique({
+  async findAll(query: QuerySkillAllDto) {
+    const skip = (query.current - 1) * query.pageSize;
+    const data = await this.prismaService.skill.findMany({
       where: {
-        id: query.id,
+        name: {
+          contains: query.name,
+        },
+      },
+      skip: skip,
+      take: query.pageSize,
+    });
+    const total = await this.prismaService.skill.count({
+      where: {
+        name: {
+          contains: query.name,
+        },
       },
     });
+    return { data: data, total: total, success: true };
   }
 
   update(updateSkillDto: UpdateSkillDto) {
     const data: Prisma.SkillUpdateInput = {
       name: updateSkillDto.name,
     };
-    return this.prismaService.project.update({
+    return this.prismaService.skill.update({
       where: { id: updateSkillDto.id },
       data: data,
     });
   }
 
-  remove(query: QuerySkillDto) {
-    return this.prismaService.skill.delete({ where: { id: query.id } });
+  remove(query: DeleteSkillDto) {
+    return this.prismaService.skill.deleteMany({
+      where: {
+        id: {
+          in: query.ids,
+        },
+      },
+    });
   }
 }

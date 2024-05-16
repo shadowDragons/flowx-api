@@ -6,9 +6,13 @@ import {
   Query,
   ValidationPipe,
 } from '@nestjs/common';
-import { CreateSkillDto, UpdateSkillDto } from '../dto/saveSkill.dto';
 import { SkillService } from '../services/skill.service';
-import { QuerySkillDto } from '../dto/querySkill.dto';
+import {
+  CreateSkillDto,
+  DeleteSkillDto,
+  UpdateSkillDto,
+} from '../dto/saveSkill.dto';
+import { QuerySkillAllDto } from '../dto/querySkill.dto';
 
 @Controller('skill')
 export class SkillController {
@@ -20,12 +24,7 @@ export class SkillController {
   }
 
   @Get('list')
-  findAll() {
-    return this.skillService.findAll();
-  }
-
-  @Get('detail')
-  findOne(
+  findAll(
     @Query(
       new ValidationPipe({
         transform: true,
@@ -35,9 +34,9 @@ export class SkillController {
         validationError: { target: false },
       }),
     )
-    query: QuerySkillDto,
+    query: QuerySkillAllDto,
   ) {
-    return this.skillService.findOne(query);
+    return this.skillService.findAll(query);
   }
 
   @Post('update')
@@ -47,7 +46,7 @@ export class SkillController {
 
   @Post('delete')
   remove(
-    @Query(
+    @Body(
       new ValidationPipe({
         transform: true,
         whitelist: true,
@@ -56,7 +55,7 @@ export class SkillController {
         validationError: { target: false },
       }),
     )
-    query: QuerySkillDto,
+    query: DeleteSkillDto,
   ) {
     return this.skillService.remove(query);
   }

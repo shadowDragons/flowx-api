@@ -18,3 +18,12 @@ export class UpdateRoleDto extends CreateRoleDto {
   @IsNotEmpty({ message: 'id不能为空' })
   id: number;
 }
+
+export class DeleteRoleDto {
+  @ApiProperty({
+    description: 'ids',
+  })
+  @Type(() => Number)
+  @IsNotEmpty({ message: 'ids不能为空' })
+  ids: number[];
+}

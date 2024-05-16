@@ -6,10 +6,7 @@ import {
   DeleteProjectTagDto,
   UpdateProjectTagDto,
 } from '../dto/saveProjectTag.dto';
-import {
-  QueryProjectTagAllDto,
-  QueryProjectTagDto,
-} from '../dto/queryProjectTag.dto';
+import { QueryProjectTagAllDto } from '../dto/queryProjectTag.dto';
 
 @Injectable()
 export class ProjectTagService {
@@ -43,14 +40,6 @@ export class ProjectTagService {
       },
     });
     return { data: data, total: total, success: true };
-  }
-
-  findOne(query: QueryProjectTagDto) {
-    return this.prismaService.projectTag.findUnique({
-      where: {
-        id: query.id,
-      },
-    });
   }
 
   update(updatetagDto: UpdateProjectTagDto) {

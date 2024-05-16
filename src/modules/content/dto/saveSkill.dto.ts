@@ -18,3 +18,12 @@ export class UpdateSkillDto extends CreateSkillDto {
   @IsNotEmpty({ message: 'id不能为空' })
   id: number;
 }
+
+export class DeleteSkillDto {
+  @ApiProperty({
+    description: 'ids',
+  })
+  @Type(() => Number)
+  @IsNotEmpty({ message: 'ids不能为空' })
+  ids: number[];
+}

@@ -33,3 +33,6 @@ prisma：
 https://www.prisma.io/docs/orm/prisma-schema/data-model/models
 
 
+nestjs 上传图片
+https://juejin.cn/post/7234365864840871993
+https://juejin.cn/post/7319890768511828020
