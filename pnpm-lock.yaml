@@ -53,6 +53,9 @@ dependencies:
   fastify:
     specifier: ^4.26.2
     version: 4.26.2
+  js-base64:
+    specifier: ^3.7.7
+    version: 3.7.7
   reflect-metadata:
     specifier: ^0.2.0
     version: 0.2.2
@@ -6073,6 +6076,10 @@ packages:
 
   /js-base64@2.6.4:
     resolution: {integrity: sha512-pZe//GGmwJndub7ZghVHz7vjb2LgC1m8B07Au3eYqeqv9emhESByMXxaEgkUkEqJe87oBbSniGYoQNIBklc7IQ==}
+    dev: false
+
+  /js-base64@3.7.7:
+    resolution: {integrity: sha512-7rCnleh0z2CkXhH67J8K1Ytz0b2Y+yxTPL+/KOJoa20hfnVQ/3/T6W/KflYI4bRHRagNeXeU2bkNGI3v1oS/lw==}
     dev: false
 
   /js-tokens@4.0.0:

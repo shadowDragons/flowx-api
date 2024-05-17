@@ -36,3 +36,8 @@ https://www.prisma.io/docs/orm/prisma-schema/data-model/models
 nestjs 上传图片
 https://juejin.cn/post/7234365864840871993
 https://juejin.cn/post/7319890768511828020
+https://help.aliyun.com/zh/oss/developer-reference/authorized-access-3
+
+RAM Policy常见示例
+https://help.aliyun.com/zh/oss/user-guide/common-examples-of-ram-policies#3ad07983293bf
+
