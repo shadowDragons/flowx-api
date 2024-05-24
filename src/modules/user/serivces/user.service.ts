@@ -15,7 +15,7 @@ export class UserService {
       pass: pass,
       salt: salt,
       roles: {
-        create: [{ role: { connect: { id: 1 } } }],
+        connect: [{ id: 1 }],
       },
     };
     return this.prismaService.user.create({
@@ -41,11 +41,7 @@ export class UserService {
         username: true,
         roles: {
           select: {
-            role: {
-              select: {
-                name: true,
-              },
-            },
+            name: true,
           },
         },
       },
@@ -56,7 +52,7 @@ export class UserService {
 
     return {
       ...data,
-      roles: data.roles.map((item) => item.role.name),
+      roles: data.roles.map((item) => item.name),
     };
   }
 }

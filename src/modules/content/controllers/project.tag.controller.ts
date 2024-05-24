@@ -39,8 +39,24 @@ export class ProjectTagController {
     return this.projectTagService.findAll(query);
   }
 
+  @Get('select')
+  select() {
+    return this.projectTagService.select();
+  }
+
   @Post('update')
-  update(@Body() updateProjectTagDto: UpdateProjectTagDto) {
+  update(
+    @Body(
+      new ValidationPipe({
+        transform: true,
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        forbidUnknownValues: true,
+        validationError: { target: false },
+      }),
+    )
+    updateProjectTagDto: UpdateProjectTagDto,
+  ) {
     return this.projectTagService.update(updateProjectTagDto);
   }
 

@@ -39,6 +39,11 @@ export class SkillController {
     return this.skillService.findAll(query);
   }
 
+  @Get('select')
+  select() {
+    return this.skillService.select();
+  }
+
   @Post('update')
   update(@Body() updateSkillDto: UpdateSkillDto) {
     return this.skillService.update(updateSkillDto);

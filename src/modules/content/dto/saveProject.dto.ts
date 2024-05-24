@@ -24,7 +24,7 @@ export class CreateProjectDto {
   @ApiProperty({
     description: '图片',
   })
-  imgs: number[];
+  imgs: string[];
 
   @ApiProperty({
     description: '技能',
@@ -40,4 +40,13 @@ export class UpdateProjectDto extends CreateProjectDto {
   @Type(() => Number)
   @IsNotEmpty({ message: '项目id不能为空' })
   id: number;
+}
+
+export class DeleteProjectDto {
+  @ApiProperty({
+    description: 'ids',
+  })
+  @Type(() => Number)
+  @IsNotEmpty({ message: 'ids不能为空' })
+  ids: number[];
 }

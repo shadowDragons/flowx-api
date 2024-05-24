@@ -1,64 +1,40 @@
 generator client {
-  provider = "prisma-client-js",
+  provider = "prisma-client-js"
   previewFeatures = ["relationJoins"]
 }
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url = env("DATABASE_URL")
 }
 
 model Project {
   id        Int      @default(autoincrement()) @id
   title     String
   description String
-  tags ProjectTagsOnProjects[]
-  imgs ProjectImgsOnProjects[]
-  skills SkillsOnProjects[]
+  tags ProjectTag[]
+  imgs ProjectImg[]
+  skills Skill[]
   status    Boolean    @default(true)
 }
 
 model ProjectTag {
   id        Int      @default(autoincrement()) @id
   name     String
-  projects ProjectTagsOnProjects[]
+  projects  Project[]      // 声明与 Project 模型的一对多关系
 }
 
 model ProjectImg {
   id        Int      @default(autoincrement()) @id
-  projects ProjectImgsOnProjects[]
   path     String
   is_main Boolean    @default(false)
+  projects  Project[]      // 声明与 Project 模型的一对多关系
 }
 
 model Skill {
   id        Int      @default(autoincrement()) @id
   name     String
-  projects SkillsOnProjects[]
-}
-
-model ProjectTagsOnProjects {
-  project       Project     @relation(fields: [projectId], references: [id])
-  projectId     Int 
-  projectTag   ProjectTag @relation(fields: [projectTagId], references: [id])
-  projectTagId Int
-  @@id([projectId, projectTagId])
-}
-
-model ProjectImgsOnProjects {
-  project       Project     @relation(fields: [projectId], references: [id])
-  projectId     Int 
-  projectImg   ProjectImg @relation(fields: [projectImgId], references: [id])
-  projectImgId Int
-  @@id([projectId, projectImgId])
-}
-
-model SkillsOnProjects {
-  project       Project     @relation(fields: [projectId], references: [id])
-  projectId     Int 
-  skill   Skill @relation(fields: [skillId], references: [id])
-  skillId Int
-  @@id([projectId, skillId])
+  projects  Project[]      // 声明与 Project 模型的一对多关系
 }
 
 
@@ -67,20 +43,12 @@ model User {
   username     String @unique
   pass String
   salt String
-  roles RolesOnUsers[]
+  roles Role[]
   status    Boolean    @default(true)
 }
 
 model Role {
   id        Int      @default(autoincrement()) @id
   name     String
-  users RolesOnUsers[]
-}
-
-model RolesOnUsers {
-  user       User     @relation(fields: [userId], references: [id])
-  userId     Int 
-  role   Role @relation(fields: [roleId], references: [id])
-  roleId Int
-  @@id([userId, roleId])
+  users  User[]      // 声明与 User 模型的一对多关系
 }

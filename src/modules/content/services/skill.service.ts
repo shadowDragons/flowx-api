@@ -42,6 +42,15 @@ export class SkillService {
     return { data: data, total: total, success: true };
   }
 
+  async select() {
+    const data = await this.prismaService.skill.findMany({});
+    const out = data.map((v) => {
+      return { label: v.name, value: v.id };
+    });
+
+    return out;
+  }
+
   update(updateSkillDto: UpdateSkillDto) {
     const data: Prisma.SkillUpdateInput = {
       name: updateSkillDto.name,

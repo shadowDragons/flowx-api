@@ -42,6 +42,15 @@ export class ProjectTagService {
     return { data: data, total: total, success: true };
   }
 
+  async select() {
+    const data = await this.prismaService.projectTag.findMany({});
+    const out = data.map((v) => {
+      return { label: v.name, value: v.id };
+    });
+
+    return out;
+  }
+
   update(updatetagDto: UpdateProjectTagDto) {
     const data: Prisma.ProjectTagUpdateInput = {
       name: updatetagDto.name,
