@@ -14,9 +14,10 @@ import { UploadFileType } from './types';
  */
 export function uploadLocalFile(file: UploadFileType, dir?: string) {
   // 获取文件总存储路径
-  const uploadConfig = process.env.MEDIA_UPLOAD_DIR;
-  console.log(uploadConfig);
-  console.log(dir);
+  const uploadConfig = join(
+    process.env.PUBLIC_DIR,
+    process.env.MEDIA_UPLOAD_DIR,
+  );
   // 上传文件的目录
   const uploadPath = isNil(dir) ? uploadConfig : join(uploadConfig, dir);
   // 使用base64解码上传文件的内容

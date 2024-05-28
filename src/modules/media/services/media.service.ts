@@ -28,7 +28,11 @@ export class MediaService {
    */
   async loadProjectImage(id: number, res: FastifyReply, ext?: string) {
     const media = await this.uploadFileService.detail(id);
-    const filePath = join(process.env.MEDIA_UPLOAD_DIR, media.path);
+    const filePath = join(
+      process.env.PUBLIC_DIR,
+      process.env.MEDIA_UPLOAD_DIR,
+      media.path,
+    );
     if (!existsSync(filePath) || (ext && extname(filePath) !== ext)) {
       throw new NotFoundException('file not exists!');
     }
@@ -43,8 +47,6 @@ export class MediaService {
    */
   async upload(file, dir) {
     const time = new Date().getTime();
-    console.log(dir);
-    console.log(file);
     const filename = time + '_' + file.originalname;
     const data = file.buffer.toString('base64');
 

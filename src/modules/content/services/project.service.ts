@@ -7,6 +7,7 @@ import {
 } from '../dto/saveProject.dto';
 import { Prisma } from '@prisma/client';
 import { QueryProjectDto } from '../dto/queryProject.dto';
+import { join } from 'path';
 @Injectable()
 export class ProjectService {
   constructor(private readonly prismaService: PrismaService) {}
@@ -79,7 +80,7 @@ export class ProjectService {
       const imgs = v.imgs.map((img) => {
         return {
           id: img.id,
-          name: img.path,
+          path: process.env.HOST + join(process.env.MEDIA_UPLOAD_DIR, img.path),
         };
       });
       return { ...v, tags, skills, imgs };

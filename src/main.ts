@@ -7,6 +7,7 @@ import {
 import 'dotenv/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { TransformInterceptor } from './transform.interceptor';
+import { join } from 'path';
 
 async function bootstrap() {
   // 使用fastify驱动
@@ -32,6 +33,8 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/api/swagger', app, document);
+
+  app.useStaticAssets({ root: join(__dirname, '..', process.env.PUBLIC_DIR) });
 
   // 启动后的输出
   await app.listen(3100, () => {
