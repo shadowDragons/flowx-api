@@ -12,25 +12,31 @@ export class ProjectService {
   constructor(private readonly prismaService: PrismaService) {}
 
   create(createProjectDto: CreateProjectDto) {
-    const createTags = createProjectDto.tags.map((tag) => {
+    const connectTags = createProjectDto.tags.map((tag) => {
       return { id: tag };
     });
-    const createSkills = createProjectDto.skills.map((skill) => {
+    const connectSkills = createProjectDto.skills.map((skill) => {
       return { id: skill };
+    });
+    const connectImgs = createProjectDto.imgs.map((img) => {
+      return { id: img };
     });
     const data: Prisma.ProjectCreateInput = {
       title: createProjectDto.title,
       description: createProjectDto.description,
       tags: {
-        connect: createTags,
+        connect: connectTags,
       },
       skills: {
-        connect: createSkills,
+        connect: connectSkills,
+      },
+      imgs: {
+        connect: connectImgs,
       },
     };
     return this.prismaService.project.create({
       data: data,
-      include: { tags: true, skills: true },
+      include: { tags: true, skills: true, imgs: true },
     });
   }
 
@@ -89,14 +95,18 @@ export class ProjectService {
     });
   }
 
-  update(updateProjectDto: UpdateProjectDto) {
+  async update(updateProjectDto: UpdateProjectDto) {
     const updateTags = updateProjectDto.tags.map((tag) => {
       return { id: tag };
     });
     const updateSkills = updateProjectDto.skills.map((skill) => {
       return { id: skill };
     });
-    return this.prismaService.project.update({
+    const updateImgs = updateProjectDto.imgs.map((img) => {
+      return { id: img };
+    });
+
+    return await this.prismaService.project.update({
       where: {
         id: updateProjectDto.id,
       },
@@ -109,10 +119,14 @@ export class ProjectService {
         skills: {
           set: updateSkills,
         },
+        imgs: {
+          set: updateImgs,
+        },
       },
       include: {
         tags: true,
         skills: true,
+        imgs: true,
       },
     });
   }

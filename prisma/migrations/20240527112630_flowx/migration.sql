@@ -17,10 +17,9 @@ CREATE TABLE `ProjectTag` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `ProjectImg` (
+CREATE TABLE `UploadFile` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `path` VARCHAR(191) NOT NULL,
-    `is_main` BOOLEAN NOT NULL DEFAULT false,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -63,12 +62,12 @@ CREATE TABLE `_ProjectToProjectTag` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `_ProjectToProjectImg` (
+CREATE TABLE `_ProjectToUploadFile` (
     `A` INTEGER NOT NULL,
     `B` INTEGER NOT NULL,
 
-    UNIQUE INDEX `_ProjectToProjectImg_AB_unique`(`A`, `B`),
-    INDEX `_ProjectToProjectImg_B_index`(`B`)
+    UNIQUE INDEX `_ProjectToUploadFile_AB_unique`(`A`, `B`),
+    INDEX `_ProjectToUploadFile_B_index`(`B`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -96,10 +95,10 @@ ALTER TABLE `_ProjectToProjectTag` ADD CONSTRAINT `_ProjectToProjectTag_A_fkey` 
 ALTER TABLE `_ProjectToProjectTag` ADD CONSTRAINT `_ProjectToProjectTag_B_fkey` FOREIGN KEY (`B`) REFERENCES `ProjectTag`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `_ProjectToProjectImg` ADD CONSTRAINT `_ProjectToProjectImg_A_fkey` FOREIGN KEY (`A`) REFERENCES `Project`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `_ProjectToUploadFile` ADD CONSTRAINT `_ProjectToUploadFile_A_fkey` FOREIGN KEY (`A`) REFERENCES `Project`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `_ProjectToProjectImg` ADD CONSTRAINT `_ProjectToProjectImg_B_fkey` FOREIGN KEY (`B`) REFERENCES `ProjectImg`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `_ProjectToUploadFile` ADD CONSTRAINT `_ProjectToUploadFile_B_fkey` FOREIGN KEY (`B`) REFERENCES `UploadFile`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `_ProjectToSkill` ADD CONSTRAINT `_ProjectToSkill_A_fkey` FOREIGN KEY (`A`) REFERENCES `Project`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

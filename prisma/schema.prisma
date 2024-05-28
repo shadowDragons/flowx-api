@@ -13,7 +13,7 @@ model Project {
   title     String
   description String
   tags ProjectTag[]
-  imgs ProjectImg[]
+  imgs UploadFile[]
   skills Skill[]
   status    Boolean    @default(true)
 }
@@ -24,10 +24,9 @@ model ProjectTag {
   projects  Project[]      // 声明与 Project 模型的一对多关系
 }
 
-model ProjectImg {
+model UploadFile {
   id        Int      @default(autoincrement()) @id
   path     String
-  is_main Boolean    @default(false)
   projects  Project[]      // 声明与 Project 模型的一对多关系
 }
 
@@ -36,7 +35,6 @@ model Skill {
   name     String
   projects  Project[]      // 声明与 Project 模型的一对多关系
 }
-
 
 model User {
   id        Int      @default(autoincrement()) @id

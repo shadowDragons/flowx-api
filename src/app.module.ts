@@ -7,9 +7,10 @@ import { AuthModule } from './modules/auth/auth.module';
 import { UserModule } from './modules/user/user.module';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './modules/auth/auth.guard';
+import { MediaModule } from './modules/media/media.module';
 
 @Module({
-  imports: [ContentModule, AuthModule, UserModule],
+  imports: [ContentModule, AuthModule, UserModule, MediaModule],
   controllers: [AppController],
   providers: [
     AppService,

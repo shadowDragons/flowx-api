@@ -13,7 +13,7 @@ import {
   DeleteProjectDto,
   UpdateProjectDto,
 } from '../dto/saveProject.dto';
-import { QueryProjectDetailDto, QueryProjectDto } from '../dto/queryProject.dto';
+import { QueryProjectDto } from '../dto/queryProject.dto';
 import { Public } from 'src/modules/auth/auth.guard';
 
 @Controller('project')
@@ -33,9 +33,7 @@ export class ProjectController {
 
   @Public()
   @Get('detail/:id')
-  detail(
-    @Param('id') id:number
-  ) {
+  detail(@Param('id') id: number) {
     return this.projectService.detail(id);
   }
 
@@ -60,10 +58,6 @@ export class ProjectController {
     @Body(
       new ValidationPipe({
         transform: true,
-        whitelist: true,
-        forbidNonWhitelisted: true,
-        forbidUnknownValues: true,
-        validationError: { target: false },
       }),
     )
     updateProjectDto: UpdateProjectDto,

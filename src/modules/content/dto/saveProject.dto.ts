@@ -24,7 +24,7 @@ export class CreateProjectDto {
   @ApiProperty({
     description: '图片',
   })
-  imgs: string[];
+  imgs: number[];
 
   @ApiProperty({
     description: '技能',
