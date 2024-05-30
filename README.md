@@ -18,6 +18,12 @@ npx @nestjs/cli  g co modules/content/controllers/skill --no-spec --flat
 mysql接入：
 https://medium.com/@rishabhgupta7210012474/practical-guide-to-integrating-prisma-with-nestjs-for-seamless-development-9f91e83cc990
 
+数据库初始化；
+1. 删除 prisma 目录
+2. npx prisma init
+3. 修改 schema.prisma
+4. npx prisma migrate dev --name <名称>
+
 
 数据库迁移：
 npx prisma migrate dev --name <名称>
