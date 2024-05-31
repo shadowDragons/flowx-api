@@ -47,3 +47,6 @@ https://help.aliyun.com/zh/oss/developer-reference/authorized-access-3
 RAM Policy常见示例
 https://help.aliyun.com/zh/oss/user-guide/common-examples-of-ram-policies#3ad07983293bf
 
+swagger
+http://localhost:3100/api/swagger
+
