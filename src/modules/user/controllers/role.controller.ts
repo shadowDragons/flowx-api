@@ -13,11 +13,13 @@ import {
 } from '../dto/saveRole.dto';
 import { QueryRoleAllDto } from '../dto/queryRole.dto';
 import { RoleService } from '../serivces/role.service';
+import { Public } from 'src/modules/auth/auth.guard';
 
 @Controller('role')
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}
 
+  @Public()
   @Post('create')
   create(@Body() createRoleDto: CreateRoleDto) {
     return this.roleService.create(createRoleDto);
